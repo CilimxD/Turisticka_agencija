@@ -4,8 +4,7 @@
     Author     : PC
 --%>
 
-<%@page import="com.sun.java.swing.plaf.windows.resources.windows"%>
-<%@page import="javafx.scene.control.Alert"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
