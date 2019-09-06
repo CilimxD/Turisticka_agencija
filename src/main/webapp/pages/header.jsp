@@ -67,12 +67,12 @@
                         <li class="" id="kontakt"><a href="http://localhost:8080/TuristickaAgencija/pages/kontakt.jsp">Kontakt</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <c:if test="${ime == null}">   
+                        <c:if test="${sessionScope.username == null}">   
                             <li id="registracija"><a href="http://localhost:8080/TuristickaAgencija/pages/registracija.jsp">Registracija</a></li>
                             <li id="login"><a href="http://localhost:8080/TuristickaAgencija/pages/login.jsp">Log in</a></li>
                             </c:if>
-                            <c:if test="${ime != null}">
-                            <li id="logout"><a href="pages/logout.jsp">${ime}(LogOut)</a></li>
+                            <c:if test="${sessionScope.username != null}">
+                            <li id="logout"><a href="pages/logout.jsp">${sessionScope.username}(LogOut)</a></li>
                             </c:if>   
                     </ul>
                 </div>

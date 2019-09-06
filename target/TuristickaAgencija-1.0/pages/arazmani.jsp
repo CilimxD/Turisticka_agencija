@@ -24,13 +24,7 @@
     </c:when>
     
     <c:otherwise>
-        <c:if test="${empty sessionScope.username || empty sessionScope.userId}">
-            
-        <div class='container naslov'>
-            <h2 style="font-weight: 900; color: red" >Molim Vas ulogujte se da bi mogli da rezervisete </h2>
-        </div>
-
-    </c:if>
+        <input type="text" value="${sessionScope.username}" id="sesName" hidden="">
         <c:set value="${param.idDrzave}" var="idDrzave" />
         <c:set value="${param.idMesta}" var="idMesta" />
         <sql:query scope="application" dataSource="${db}" var="mesta">

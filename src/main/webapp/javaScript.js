@@ -79,7 +79,12 @@ $("document").ready(function () {
     var dugaciUrl = window.location.href;
     var upitnik = dugaciUrl.lastIndexOf("?");
     var URL = dugaciUrl.substring(0, upitnik);
-
+    if (URL ==="http://localhost:8080/TuristickaAgencija/pages/arazmani.jsp"){
+        var sesijskoIme = $("#sesName").val();
+        if(sesijskoIme === ""){
+            alert("Morate biti ulogovani da bi rezervisali");
+        }
+    }
     if (URL === "http://localhost:8080/TuristickaAgencija/pages/rezervacija.jsp") {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
