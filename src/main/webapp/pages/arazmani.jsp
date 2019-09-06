@@ -25,6 +25,7 @@
     
     <c:otherwise>
         <input type="text" value="${sessionScope.username}" id="sesName" hidden="">
+        
         <c:set value="${param.idDrzave}" var="idDrzave" />
         <c:set value="${param.idMesta}" var="idMesta" />
         <sql:query scope="application" dataSource="${db}" var="mesta">
