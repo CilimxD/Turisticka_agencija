@@ -83,6 +83,7 @@ $("document").ready(function () {
         var sesijskoIme = $("#sesName").val();
         if(sesijskoIme === ""){
             alert("Morate biti ulogovani da bi rezervisali");
+            
         }
     }
     if (URL === "http://localhost:8080/TuristickaAgencija/pages/rezervacija.jsp") {
