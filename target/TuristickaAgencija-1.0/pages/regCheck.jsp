@@ -8,7 +8,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,69 +16,63 @@
 
 <div><c:import url="header.jsp"/></div>
 
-<c:set value="${param.username}" var="user" />
-
-<div><c:out value="${param.username}" /></div>
-
-<%-- <sql:setDataSource driver="com.mysql.jdbc.Driver" password="123" user="dule" 
-                   url="jdbc:mysql://localhost:3306/turisticka_agencija?autoReconnect=true&useSSL=false"
-                   scope="application" var="db" />
-<c:set value="${param.username}" var="username"/>
-<sql:query dataSource="${db}" var="result"> 
+<%--<c:set value="${param.username}" var="username"/>
+<sql:query scope="application" dataSource="${db}" var="rez"> 
     SELECT * from logovanje WHERE log_username="${username}";
 </sql:query>
 <c:choose>
-    <c:when test="${result.rowCount == 0}">
-        <c:set value="${param.name}" var="name"/>
-        <c:set value="${param.lastname}" var="lastname" />
-        <c:set value="${param.phone_number}" var="phone_number" />
-        <c:set value="${param.adresse}" var="adresse" />
-        <c:set value="${param.city}" var="city" />
-        <c:set value="${param.password}" var="password" />
-
-
-        <sql:update dataSource="${db}" var="log">
-            INSERT INTO logovanje(log_username,log_password)VALUES("${username}","${password}")
-            <%
-                System.out.println("Uspesno upisivanje");
-            %>
-        </sql:update>
-        <sql:query dataSource="${db}" var="all">
-            SELECT * FROM logovanje WHERE log_username = "${user}" AND log_password = "${password}";
-        </sql:query>
-        <c:forEach items="${all.row}" var="row1">
-            <c:set value="${row1.id}" var="idKor"/>
-        </c:forEach>
-        <sql:update dataSource="${db}" var="kori">
-            INSERT INTO korisnici(kor_ime,kor_prezime,kor_jmbg,kor_brTelefona,kor_br_usluga,kor_grad,log_id,kor_adresa)VALUES
-            ("${name}","${lastname}","0","${phone_number}","0","${city}","${idKor}","${adresa}");
-        </sql:update>
-        <div class="container naslov">
-            <h2 style="color: green">
-                Uspesno ste se registrovali!!
+    <c:when test="${rez.rowCount != 0}">
+        <div class='container naslov'>
+            <h2 style ='color: red;'>
+                Korisnicko ime ${username} vec postoji molim Vas unesite neko drugo!!
             </h2>
         </div>
-        <c:forEach begin="1" end="5" step="1" var="broj">
-            <c:if test="${broj = 5}">
-                <c:redirect url="index.jsp" />
-            </c:if>
-        </c:forEach>
-
+        <%
+            response.setHeader("Refresh", "5;url=registracija.jsp");
+        %>
     </c:when>
     <c:otherwise>
-        <div class="container naslov">
-            <h2 style="color: red">
-                Korsisnicko ime ${usernaem} vec postoji molim Vas unesite neko drugo 
-            </h2>
-        </div>
-        <c:forEach begin="1" end="5" step="1" var="broj">
-            <c:if test="${broj = 5}">
-                <c:redirect url="registracija.jsp" />
-            </c:if>
-        </c:forEach>
+        <c:set value="${param.name}" var="name"/>
+        <c:set value="${param.lastname}" var="lastname"/>
+        <c:set value="${param.jmbg}" var="jmbg"/>
+        <c:set value="${param.phone_number}" var="phone_number"/>
+        <c:set value="${param.adresse}" var="adresse"/>
+        <c:set value="${param.city}" var="city"/>
+        <c:set value="${param.password}" var="password"/>
+        <c:set value="0" var="brUsulga"/>
+        <c:set value="${param.radio}" var="userStatus"/>
+
+        <sql:transaction dataSource="${applicationScope.db}">
+            <!--Upisivanje u tabelu logovanje-->
+            <sql:update>
+               INSERT INTO logovanje(log_username,log_password)VALUES("${username}","${password}") 
+            </sql:update>
+               <!--Uzimanje id iz logovanje tabele-->
+            <sql:query var="log">
+                SELECT * FROM logovanje WHERE log_username = "${username}" AND log_password = "${password}"
+            </sql:query>
+            <c:forEach items="${log.rows}" var="rez">
+                <c:set value="${rez.log_id}" var="id"/>
+            </c:forEach>
+                <!--Upisivanje u korisnici tabeli ostali podaci-->
+                    <sql:update>
+                INSERT INTO korisnici(kor_ime,kor_prezime,kor_jmbg,kor_brTelefona,kor_br_usluga,kor_grad,korisnici.log_id,kor_adresa,kor_admin)
+                VALUES(?,?,?,?,?,?,?,?,?);
+                <sql:param value="${name}" />
+                <sql:param value="${lastname}" />
+                <sql:param value="${jmbg}" />
+                <sql:param value="${phone_number}" />
+                <sql:param value="${brUsulga}" />
+                <sql:param value="${city}" />
+                <sql:param value="${id}" />
+                <sql:param value="${adresse}" />
+                <sql:param value="${userStatus}" />
+            </sql:update>
+            
+        </sql:transaction>
     </c:otherwise>
-</c:choose>    
---%>
+</c:choose>--%>
+
 <%
     String users = request.getParameter("username");
     Connection con = null;

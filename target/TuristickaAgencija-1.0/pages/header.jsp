@@ -72,7 +72,8 @@
                             <li id="login"><a href="http://localhost:8080/TuristickaAgencija/pages/login.jsp">Log in</a></li>
                             </c:if>
                             <c:if test="${sessionScope.username != null}">
-                            <li id="logout"><a href="pages/logout.jsp">${sessionScope.username}(LogOut)</a></li>
+                            <li id="rezervacije"><a href="http://localhost:8080/TuristickaAgencija/pages/pregled.jsp">Pregled rezervacija</a></li>
+                            <li id="logout"><a href="http://localhost:8080/TuristickaAgencija/pages/logout.jsp">${sessionScope.username}(LogOut)</a></li>
                             </c:if>   
                     </ul>
                 </div>

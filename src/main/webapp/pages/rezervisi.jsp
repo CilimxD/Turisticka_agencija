@@ -38,6 +38,7 @@
         <c:set value="${param.idMesta}" var="idMesta" />
         <c:set value="${param.brojSobe}" var="brojSobe" />
         <c:set value="${param.ukupnaCena}" var="ukupnaCena" />
+        <c:set value="${param.idSmestaja}" var="SmestajId" />
 
         <fmt:parseDate value="${datumOd}" type="DATE" pattern="yyyy-MM-dd" var="formatedDate"/> 
         <fmt:formatDate value="${formatedDate}" pattern="EEE, MMM dd yyyy " type="DATE"/> 
@@ -45,8 +46,8 @@
 
 
         <sql:update scope="application" dataSource="${db}" var="sve">
-            INSERT INTO arazman(pre_id,araz_cena,araz_datum_od,araz_datum_do,araz_br_osoba,mes_id,sobe_id) VALUES 
-            (?,?,?,?,?,?,?);
+            INSERT INTO arazman(pre_id,araz_cena,araz_datum_od,araz_datum_do,araz_br_osoba,mes_id,sobe_id,kor_id,sme_id) VALUES 
+            (?,?,?,?,?,?,?,?);
             <sql:param value="${prevoz}" />
             <sql:param value="${ukupnaCena}" />
             <sql:param value="${formatedDate}"/> 
@@ -54,25 +55,28 @@
             <sql:param value="${brojLjudi}" />
             <sql:param value="${idMesta}" />
             <sql:param value="${brojSobe}" />
+            <sql:param value="${sessionScope.userId}" />
+            <sql:param value="${SmestajId}" />
 
         </sql:update>
-        <c:if test="${sve >= 1 }">
+        <sql:query scope="application" dataSource="${db}" var="korisnici">
+            SELECT kor_br_usluga FROM korisnici WHERE kor_id = "${sessionScope.userId}"
+        </sql:query>
+        <c:forEach items="${korisnici.rows}" var="rez">
+            <c:set value="${rez.kor_br_usluga + 1}" var="brUsluga" />
+        </c:forEach>
+        <sql:update scope="application" dataSource="${db}" var="brUsluga">
+            UPDATE korisnici SET kor_br_usluga = "${brUsluga}"
+                WHERE kor_id = "${sessionScope.userId}";
+        </sql:update>    
+        
             <div class='container naslov'>
                 <h2 class="naslov" style="font-weight: 900; color: green" >Uspesno ste rezervisali</h2>
             </div>
             <%
                 response.setHeader("Refresh", "5;url=../index.jsp");
             %>
-        </c:if>
-        <c:if test="${sve <= 0 }">
-            <div class='container naslov'>
-                <h2 class="naslov" style="font-weight: 900; color: green" >Ne uspesno pokusajte ponovo </h2>
-            </div>
-            <%
-                response.setHeader("Refresh", "5;url=../index.jsp");
-            %>
-
-        </c:if>
+        
     </c:otherwise>
 </c:choose>
 

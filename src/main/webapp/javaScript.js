@@ -57,8 +57,9 @@ $("document").ready(function () {
             var pass = $("#password").val();
             var conPass = $("#confirm_password").val();
 
+
             if (pass === conPass && pass !== "" && conPass !== "") {
-                $('#submit').removeAttr("disabled");
+
                 $("#span1").empty();
                 $('#span1').html('Match').css('color', 'green');
             }
@@ -73,20 +74,41 @@ $("document").ready(function () {
             }
 
         });
+        $("input[name='radio']").hover(function () {
+            var radios = document.getElementsByName("radio");
+            var found = 1;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked && $("#span1").text() == "Match") {
+//                    alert(radios[i].value);
+                    found = 0;
+                    $('#submit').removeAttr("disabled");
+                    $("#radio").empty();
+                    break;
+                }
+            }
+            if (found == 1)
+            {
+                
+                $('#submit').attr("disabled", "disabled");
+                $("#radio").html("Molim Vas izaberete");
+            }
 
+        });
 
     }
     var dugaciUrl = window.location.href;
     var upitnik = dugaciUrl.lastIndexOf("?");
     var URL = dugaciUrl.substring(0, upitnik);
-    if (URL ==="http://localhost:8080/TuristickaAgencija/pages/arazmani.jsp"){
+    if (URL === "http://localhost:8080/TuristickaAgencija/pages/arazmani.jsp") {
         var sesijskoIme = $("#sesName").val();
-        if(sesijskoIme === ""){
+        if (sesijskoIme === "") {
             alert("Morate biti ulogovani da bi rezervisali");
-            
+
         }
     }
     if (URL === "http://localhost:8080/TuristickaAgencija/pages/rezervacija.jsp") {
+            
+         
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
             var today = new Date();
@@ -103,9 +125,9 @@ $("document").ready(function () {
             today = yyyy + '-' + mm + '-' + dd;
             $("#datumOd").attr("min", today);
 
-            $("#brojSobe").change(function () {
-                $("#ukupnaCena").html("");
-//            $("#datumOd").val(""); 
+            $("#brojSobe").mouseleave(function () {
+//                $("#ukupnaCena").html("");
+//                $("#datumOd").val(""); 
 //            promeniti sve vrednosti na 0 kad se predhotni element promenio
                 var value = $(this).val();
                 var brLjudi = parseInt($("#brojLjudi").val());
@@ -138,7 +160,7 @@ $("document").ready(function () {
                 }
 
 
-                $("#brojDana").change(function () {
+                $("#brojDana").mouseleave(function () {
                     var date1 = $("#datumOd").val();
                     var days = parseInt($("#brojDana").val());
 
@@ -173,20 +195,40 @@ $("document").ready(function () {
                         $("#prevoz").empty();
                         $("#prevoz").append(prevoz);
                     });
-                    $("#prevoz").change(function () {
+                    $("#prevoz").mouseleave(function () {
                         var cenaTxt = $("#prevoz option:selected").text();
                         var cena = cenaTxt.indexOf("cena") + 4;
                         var dinara = cenaTxt.indexOf("dinara");
                         var cenaPrevoza = parseFloat(cenaTxt.substring(cena, dinara) + 0.0);
                         $("#cenaPrevoza").html(cenaPrevoza);
+                        
+                       
 
                         if ($("#cenaPrevoza").text() !== "") {
                             $("#ukupnaCena").html("Ukupno " + (parseInt($("#cena").text()) * parseInt($("#brojDana").val()) + parseInt($("#cenaPrevoza").text())) + " dinara");
-                            $("input[name='ukupnaCena']").val(parseInt($("#cena").text()) * parseInt($("#brojDana").val()) + parseInt($("#cenaPrevoza").text()));
+                            
                         } else if ($("#cenaPrevoza").text() === "") {
                             $("#ukupnaCena").html("Ukupno " + (parseInt($("#cena").text()) * parseInt($("#brojDana").val())) + " dinara");
-                            $("input[name='ukupnaCena']").val(parseInt($("#cena").text()) * parseInt($("#brojDana").val()));
+                            
                         }
+                        if ($("#popust").text() > 0 && $("#popust").text() <= 3 ){
+                            $("#popust2").html("ostvariliste 10% popusta");
+                            var popust =(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))-(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))/10;
+                            $("#cenaSaPopustom").html(parseInt(popust));
+                            $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
+                            }
+                        if ($("#popust").text() > 4 && $("#popust").text() <= 7 ){
+                            $("#popust2").html("ostvariliste 20% popusta");
+                            var popust =(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))-(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))/20;
+                            $("#cenaSaPopustom").html(parseInt(popust));
+                            $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
+                            }
+                        if ($("#popust").text() > 0 && $("#popust").text() <= 8 ){
+                            $("#popust2").html("ostvariliste 30% popusta");
+                            var popust =(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))-(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))/30;
+                            $("#cenaSaPopustom").html(parseInt(popust));
+                            $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
+                            }    
 
 
                         if ($("#brojLjudi").val() !== "" && $("#brojSobe").val() !== "" && $("#greska").text() === "" && $("#greskaDatum").text().trim() === "") {
@@ -202,7 +244,8 @@ $("document").ready(function () {
 
         });
 
-    };
+    }
+    ;
 
 });
 

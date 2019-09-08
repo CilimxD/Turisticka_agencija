@@ -12,7 +12,7 @@
 <c:set value="${param.b}" var="datumDo" />
 <c:set value="${param.c}" var="idSobe" />
 <sql:query scope="application" dataSource="${db}" var="sve">
-    SELECT * FROM arazman WHERE arazman.sobe_id = 2 && 
+    SELECT * FROM arazman WHERE arazman.sobe_id = ${idSobe} && 
     ( CAST("${datumOd}" AS DATE)  BETWEEN araz_datum_od AND araz_datum_do 
     || CAST("${datumDo}" AS DATE) BETWEEN araz_datum_od AND araz_datum_do);
 </sql:query>

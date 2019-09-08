@@ -28,6 +28,11 @@
                 <span class="help-block"></span>
             </div>
             <div class = "form-group">
+                <label>JMBG:</label>
+                <input type="text" name="jmbg" class= "form-control" pattern="[0-9]{13}" title="Mora da sadrzi 13 cifara">
+                <span class="help-block"></span>
+            </div>
+            <div class = "form-group">
                 <label>Broj telefona:</label>
                 <input type="text" name="phone_number" class= "form-control" pattern="[0-9]{10}" title="Unesite 10 cifara">
                 <span class="help-block"></span>
@@ -59,17 +64,13 @@
                 <input type="password" id="confirm_password" name="confirm_password" class= "form-control" >
                 <span class="help-block" id="span1"></span>
             </div>
-
-
-
             <div class="form-group">
-                <input type="radio" name="radio" value="1"> Admin <br>
-                <input type="radio" name="radio" value="2"> User 
-                <span class="help-block"></span>
+                <!--treba ovo srediti da ne moze dalje ako nesto nije selektovano-->
+                <input type="radio" name="radio" value="da"> Admin <br>
+                <input type="radio" name="radio" value="ne"> User 
+                <span class="help-block" id="radio"></span>
             </div>
-
-
-            <div class="form-group">
+            <div class="form-group" >
                 <input id="submit" type="submit" class="btn btn-primary" value="Submit" disabled=""> &nbsp; &nbsp; 
                 <input type="reset" class="btn btn-default" value="Reset">
             </div>

@@ -31,6 +31,14 @@
         %>
     </c:when>
     <c:otherwise>
+        <sql:query scope="application" dataSource="${db}" var="pop">
+                        SELECT * FROM korisnici WHERE kor_id = "${sessionScope.userId}";
+                    </sql:query>
+                        <c:forEach items="${pop.rows}" var="popusti">
+                            <c:set value="${popusti.kor_br_usluga}" var="popust" />
+                            
+                        </c:forEach>   
+                    
         <div class="container opis" >
             <div class="naslov" >Rezervacija</div>
             <c:set value="${param.idDrzave}" var="idDrzave" />
@@ -42,7 +50,7 @@
                 FROM mesta
                 INNER JOIN drzava ON drzava.drz_id = mesta.drz_id 
                 INNER JOIN smestaj ON smestaj.mes_id = mesta.mes_id 
-                INNER JOIN sobe ON sobe.sme_id = smestaj.sme_id 
+                INNER JOIN sobe ON sobe.sme_id = smestaj.sme_id
                 INNER JOIN prevoz ON prevoz.mes_id = mesta.mes_id WHERE mesta.mes_id=${idMesta} && smestaj.sme_id=${idSmestaja}
             </sql:query>
             <c:forEach items="${sve.rows}" var="rez" varStatus="loop">
@@ -104,11 +112,13 @@
                         <option value=""> Izaberite tip prevoza: </option>
                     </select> <br/>
                     <span id="cenaPrevoza" hidden=""></span>
+                    
+                        
+                    <span id="popust" hidden="">${popust}</span>
+                    <span id="popust2"></span> <br/>
                     <span id="ukupnaCena"></span> <br/>
-                    <input type="text" name="ukupnaCena" value="" hidden="">
-                    <span id="test"></span>
-
-
+                    <span id="cenaSaPopustom"></span><br/>
+                    <input type="text" name="ukupnaCena" value="" hidden=""> 
                 </form>
                 <form>
                     <p><a href="arazmani.jsp?idDrzave=${idDrzave}&idMesta=${idMesta}"

@@ -4,16 +4,7 @@
     Author     : PC
 --%>
 
-
-
-<%@page import="javax.persistence.PersistenceUnit"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%@page import="java.util.List"%>
-<%@page import="javax.persistence.EntityManager"%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="javax.persistence.Persistence"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -53,35 +44,4 @@
 </div>
 <div class="raw foot"><c:import url="footer.jsp"/></div>
 
-<%
-//    String user = request.getParameter("username");
-//    String pass = request.getParameter("password");
-//    String err = null;
-//
-//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("turistickaAgencija_TuristickaAgencija_war_1.0PU");
-//
-//    EntityManager em = emf.createEntityManager();
-//    List<Logovanje> log=null ;
-//
-//    log = em.createQuery("SELECT l FROM Logovanje l ").getResultList();
-//
-//    boolean login = false;
-//    for (Logovanje l : log) {
-//        // out.println(u.getUsrName());
-//        if (l.getLogUsername().equals(user) && l.getLogPassword().equals(pass)) {
-//            login = true;
-//            break;
-//
-//        } else {
-//            return;
-//        }
-//    }
-//    if (login) {
-//        System.out.println("USPEH");
-//        String redirectURL = "http://localhost:8080/Zavrsni_projekat/pages/registracija.jsp";
-//        response.sendRedirect(redirectURL);
-//    }
-//
-//    em.close();
-%>
 
