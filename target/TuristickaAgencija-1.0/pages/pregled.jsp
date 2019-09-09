@@ -11,7 +11,7 @@
 <div><c:import url="header.jsp"/></div>
 
 <div class="container">
-    <h1 class="naslov">Pregled svih rezervacija</h1>
+    <h1 class="naslov" style="font-size: 80px">Pregled svih rezervacija</h1>
     <c:out value="${sessionScope.admin}"/>
     <c:choose>
         <c:when test="${sessionScope.admin != da}"> 
@@ -89,7 +89,7 @@
             INNER JOIN arazman ON arazman.sme_id = smestaj.sme_id
             INNER JOIN korisnici ON korisnici.kor_id = arazman.kor_id
             INNER JOIN logovanje ON logovanje.log_id = korisnici.log_id
-            WHERE mesta.mes_id="${mestoId}" && smestaj.sme_id="${smestajId}" && drzava.drz_id="${drzavaId}" && sobe_id = "${sobaId}" && 
+            WHERE mesta.mes_id="${mestoId}" && smestaj.sme_id="${smestajId}" && drzava.drz_id="${drzavaId}" && sobe.sobe_id = "${sobaId}" && 
             arazman.kor_id = "${korisnikId}"
         </sql:query>
         <c:forEach items="${rez1.rows}" var="sve">
