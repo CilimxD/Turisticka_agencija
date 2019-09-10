@@ -12,9 +12,10 @@
 
 <div class="container">
     <h1 class="naslov" style="font-size: 80px">Pregled svih rezervacija</h1>
-    <c:out value="${sessionScope.admin}"/>
+    
     <c:choose>
-        <c:when test="${sessionScope.admin != da}"> 
+        
+        <c:when test="${sessionScope.admin eq 'ne'}"> 
     <table style="border: 3px solid black;width: 100%;background-color: #f0ead6;box-shadow: 10px 10px 5px grey">    
     <sql:query scope="application" dataSource="${db}" var="rez">
         SELECT * FROM arazman WHERE kor_id = "${sessionScope.userId}"
@@ -28,15 +29,15 @@
             <c:set value="${rezervacija.kor_id}" var="korisnikId"/>
             <c:set value="${rezervacija.sme_id}" var="smestajId"/>
             <c:set value="${rezervacija.drz_id}" var="drzavaId"/>
-        
         <sql:query scope="application" dataSource="${db}" var="rez1">
         SELECT drzava.drz_naziv,mesta.mes_lokacija,smestaj.sme_naziv,sobe.sobe_broj
             FROM drzava
             INNER JOIN mesta ON drzava.drz_id = mesta.drz_id 
             INNER JOIN smestaj ON smestaj.mes_id = mesta.mes_id 
             INNER JOIN sobe ON sobe.sme_id = smestaj.sme_id 
-            WHERE mesta.mes_id="${mestoId}" && smestaj.sme_id="${smestajId}" && drzava.drz_id="${drzavaId}" && sobe_id = "${sobaId}"
+            WHERE mesta.mes_id="${mestoId}" AND smestaj.sme_id="${smestajId}" AND drzava.drz_id="${drzavaId}" AND sobe_id = "${sobaId}"
         </sql:query>
+     
         <c:forEach items="${rez1.rows}" var="sve">
             <c:set value="${sve.drz_naziv}" var="drzavaNaziv" />
             <c:set value="${sve.mes_lokacija}" var="mestoIme" />
@@ -89,7 +90,7 @@
             INNER JOIN arazman ON arazman.sme_id = smestaj.sme_id
             INNER JOIN korisnici ON korisnici.kor_id = arazman.kor_id
             INNER JOIN logovanje ON logovanje.log_id = korisnici.log_id
-            WHERE mesta.mes_id="${mestoId}" && smestaj.sme_id="${smestajId}" && drzava.drz_id="${drzavaId}" && sobe.sobe_id = "${sobaId}" && 
+            WHERE mesta.mes_id="${mestoId}" AND smestaj.sme_id="${smestajId}" ANd drzava.drz_id="${drzavaId}" AND sobe.sobe_id = "${sobaId}" AND
             arazman.kor_id = "${korisnikId}"
         </sql:query>
         <c:forEach items="${rez1.rows}" var="sve">
