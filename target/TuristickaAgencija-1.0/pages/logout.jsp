@@ -20,5 +20,5 @@
 
     </div>
 </div>
-<meta http-equiv="refresh" content="5;url=../index.jsp" />
+<meta http-equiv="refresh" content="2;url=../index.jsp" />
 <div class="raw foot"><c:import url="footer.jsp"/></div>

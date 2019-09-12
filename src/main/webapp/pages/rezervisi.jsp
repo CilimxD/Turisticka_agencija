@@ -16,7 +16,7 @@
             <h2 class="naslov" style="font-weight: 900; color: red" >Molim Vas ulogujte se </h2>
         </div>
         <%
-            response.setHeader("Refresh", "5;url=login.jsp");
+            response.setHeader("Refresh", "2;url=login.jsp");
         %>
     </c:when>
     <c:when test="${empty param.brojLjudi || empty param.brojSobe || empty param.datumOd || empty param.datumDo ||
@@ -25,7 +25,7 @@
                 <h2 class="naslov" style="font-weight: 900; color: red" >Neispravni parametri </h2>
             </div>
             <%
-                response.setHeader("Refresh", "5;url=../index.jsp");
+                response.setHeader("Refresh", "2;url=../index.jsp");
             %>
     </c:when>
     <c:otherwise>
@@ -43,10 +43,9 @@
         <fmt:parseDate value="${datumOd}" type="DATE" pattern="yyyy-MM-dd" var="formatedDate"/> 
         <fmt:formatDate value="${formatedDate}" pattern="EEE, MMM dd yyyy " type="DATE"/> 
 
-
-
         <sql:update scope="application" dataSource="${db}" var="sve">
-            INSERT INTO arazman(pre_id,araz_cena,araz_datum_od,araz_datum_do,araz_br_osoba,mes_id,sobe_id,kor_id,sme_id) VALUES 
+            
+            INSERT INTO arazman(pre_id,araz_cena,araz_datum_od,araz_datum_do,araz_br_osoba,mes_id,sobe_id,kor_id) VALUES 
             (?,?,?,?,?,?,?,?);
             <sql:param value="${prevoz}" />
             <sql:param value="${ukupnaCena}" />
@@ -56,8 +55,7 @@
             <sql:param value="${idMesta}" />
             <sql:param value="${brojSobe}" />
             <sql:param value="${sessionScope.userId}" />
-            <sql:param value="${SmestajId}" />
-
+            
         </sql:update>
         <sql:query scope="application" dataSource="${db}" var="korisnici">
             SELECT kor_br_usluga FROM korisnici WHERE kor_id = "${sessionScope.userId}"
@@ -79,8 +77,6 @@
         
     </c:otherwise>
 </c:choose>
-
-
 
 <div class="raw foot"><c:import url="footer.jsp" /></div>
 

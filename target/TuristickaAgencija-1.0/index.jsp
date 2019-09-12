@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<%@page import="turistickaagencija.Connect"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
@@ -11,13 +7,6 @@
 <sql:setDataSource driver="com.mysql.jdbc.Driver" password="123" user="dule" 
                    url="jdbc:mysql://localhost:3306/turisticka_agencija?autoReconnect=true&useSSL=false"
                    scope="application" var="db" />
-
-<%
-    String ime = (String) session.getAttribute("username");
-    String id = String.valueOf(session.getAttribute("userId"));
-    out.print("Hello users: You have enterd the name " + ime + " " + id);
-%>
-
 
 <div><c:import url="pages/header.jsp" /></div>
 <div class='container' style="margin-top: 20px;">
@@ -34,8 +23,8 @@
             <sql:query dataSource="${db}" var="slider"> 
                 SELECT drzava.drz_id,mesta.mes_id,specjalne_ponude.spec_opis,specjalne_ponude.spec_jpg,drzava.drz_naziv,mesta.mes_lokacija
                 FROM specjalne_ponude
-                INNER JOIN drzava ON specjalne_ponude.drz_id = drzava.drz_id
-                INNER JOIN mesta ON specjalne_ponude.mes_id = mesta.mes_id;
+                INNER JOIN mesta ON specjalne_ponude.mes_id = mesta.mes_id
+                INNER JOIN drzava ON mesta.drz_id = drzava.drz_id;
             </sql:query>
             <c:forEach items="${slider.rows}" var="items" >
                 <c:set value="${items.drz_id}" var="drzavaId" />
@@ -105,53 +94,26 @@
 //                    System.out.println(minidMesta + " je min broj id ");
 //                        int test1=-1;
 //                        int test2=-2;
-                          int x = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
-                          list.add(x);
-                          int y = 0;
-                          int z = 0;
-                          while (y == 0 || y == x){
-                              y = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
-                              if(y != x){
-                                  list.add(y);
-                              }
-                          }
-                          while ( z==0 || z==x || z==y ){
-                              z = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
-                              if(z!=y && z!=x){
-                                  list.add(z);
-                              }
-                          }
-//                    for (int i = 0; i < 3; i++) {
-//                        int rBroj = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
-//                        System.out.println("Random broj " + rBroj);
+                    int x = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
+                    list.add(x);
+                    int y = 0;
+                    int z = 0;
+                    while (y == 0 || y == x) {
+                        y = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
+                        if (y != x) {
+                            list.add(y);
+                        }
+                    }
+                    while (z == 0 || z == x || z == y) {
+                        z = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
+                        if (z != y && z != x) {
+                            list.add(z);
+                        }
+                    }
 
-//                        if (rBroj != test1 && rBroj != test2){
-//                            list.add(rBroj);
-//                            test2=test1;
-//                            test1=rBroj;
-//                            System.out.println("razlicito");
-//                            
-//                        }while(rBroj == test1 || rBroj == test2){
-//                            rBroj = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
-//                            list.add(rBroj);
-//                            test2=test1;
-//                            test1=rBroj;
-//                            System.out.println("isto");
-                        
-                        pageContext.setAttribute("broj", list);
-//                    }
-//                        if(test == rBroj){
-//                            rBroj = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
-//                            list.add(rBroj);
-//                            test=rBroj;
-//                        }else if (test != rBroj){
-//                            list.add(rBroj);
-//                            test=rBroj;
-//                        }  
-//                    }
+                    pageContext.setAttribute("broj", list);
 
-//                    System.out.println(list.size());
-%>
+                %>
 
                 <c:forEach items="${broj}" var="randomBroj">
                     <sql:query dataSource="${db}" var="ponuda"> 
@@ -194,7 +156,7 @@
                 <c:set value="${drzave.drz_naziv}" var="drzava"/>
                 <div class="row" style="padding-top: 8px;">
                     <div class="col-xs-8" style="padding-right: 0px;">
-                        <a href="" type="button" class="btn btn-warning btn-lg btn-block buttonLeft">${drzava}</a>
+                        <a href="pages/mesta.jsp?drzavaID=${drzavaId}" type="button" class="btn btn-warning btn-lg btn-block buttonLeft">${drzava}</a>
                     </div>
                     <div class="col-xs-4" style="padding-left: 0px;">
                         <a type="button" class="btn btn-warning btn-lg btn-block buttonRight" data-toggle="collapse"

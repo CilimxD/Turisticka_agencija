@@ -125,7 +125,7 @@ $("document").ready(function () {
             today = yyyy + '-' + mm + '-' + dd;
             $("#datumOd").attr("min", today);
 
-            $("#brojSobe").mouseleave(function () {
+            $("#brojSobe").change(function () {
 //                $("#ukupnaCena").html("");
 //                $("#datumOd").val(""); 
 //            promeniti sve vrednosti na 0 kad se predhotni element promenio
@@ -160,7 +160,7 @@ $("document").ready(function () {
                 }
 
 
-                $("#brojDana").mouseleave(function () {
+                $("#brojDana").change(function () {
                     var date1 = $("#datumOd").val();
                     var days = parseInt($("#brojDana").val());
 
@@ -195,7 +195,7 @@ $("document").ready(function () {
                         $("#prevoz").empty();
                         $("#prevoz").append(prevoz);
                     });
-                    $("#prevoz").mouseleave(function () {
+                    $("#prevoz").change(function () {
                         var cenaTxt = $("#prevoz option:selected").text();
                         var cena = cenaTxt.indexOf("cena") + 4;
                         var dinara = cenaTxt.indexOf("dinara");
@@ -211,21 +211,30 @@ $("document").ready(function () {
                             $("#ukupnaCena").html("Ukupno " + (parseInt($("#cena").text()) * parseInt($("#brojDana").val())) + " dinara");
                             
                         }
-                        if ($("#popust").text() > 0 && $("#popust").text() <= 3 ){
+                        if (parseInt($("#popust").text()) <= 0 ){
+                            $("#popust2").html("Nemate popust");
+                            var popust =parseInt($("#cena").text()) * parseInt($("#brojDana").val()) + parseInt($("#cenaPrevoza").text());
+                            $("#cenaSaPopustom").html(parseInt(popust));
+                            $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
+                            }
+                        if (parseInt($("#popust").text()) > 0 && parseInt($("#popust").text()) <= 3 ){
                             $("#popust2").html("ostvariliste 10% popusta");
-                            var popust =(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))-(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))/10;
+                            var cena = parseInt($("#cena").text()) * parseInt($("#brojDana").val())+ parseInt($("#cenaPrevoza").text());
+                            var popust = cena - (cena * 0.1);
                             $("#cenaSaPopustom").html(parseInt(popust));
                             $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
                             }
-                        if ($("#popust").text() > 4 && $("#popust").text() <= 7 ){
+                        if (parseInt($("#popust").text()) > 3 && parseInt($("#popust").text()) <= 7 ){
                             $("#popust2").html("ostvariliste 20% popusta");
-                            var popust =(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))-(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))/20;
+                            var cena = parseInt($("#cena").text()) * parseInt($("#brojDana").val())+ parseInt($("#cenaPrevoza").text());
+                            var popust = cena - (cena * 0.2);
                             $("#cenaSaPopustom").html(parseInt(popust));
                             $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
                             }
-                        if ($("#popust").text() > 0 && $("#popust").text() <= 8 ){
+                        if (parseInt($("#popust").text()) > 7){
                             $("#popust2").html("ostvariliste 30% popusta");
-                            var popust =(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))-(parseInt($("#cena").text()) * parseInt($("#brojDana").val()))/30;
+                            var cena = parseInt($("#cena").text()) * parseInt($("#brojDana").val())+ parseInt($("#cenaPrevoza").text());
+                            var popust = cena - (cena * 0.3);
                             $("#cenaSaPopustom").html(parseInt(popust));
                             $("input[name='ukupnaCena']").val($("#cenaSaPopustom").text());
                             }    

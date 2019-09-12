@@ -4,10 +4,7 @@
     Author     : PC
 --%>
 
-<%@page import="java.sql.ResultSet"%>
-<%@page import="turistickaagencija.Connect"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -58,10 +55,10 @@
                                     <c:set value="${destinacije.drz_naziv}" var="drzava" />
                                     <li><a href="http://localhost:8080/TuristickaAgencija/pages/mesta.jsp?drzavaID=${drzavaID}">${drzava}</a></li>
                                     </c:forEach>                  
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Gallery</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Videos</a></li>
+                                <li role="separator" class="divider" hidden=""></li>
+                                <li hidden=""><a href="#">Gallery</a></li>
+                                <li role="separator" class="divider" hidden=""></li>
+                                <li hidden=""><a href="#">Videos</a></li>
                             </ul>
                         </li>
                         <li class="" id="kontakt"><a href="http://localhost:8080/TuristickaAgencija/pages/kontakt.jsp">Kontakt</a></li>

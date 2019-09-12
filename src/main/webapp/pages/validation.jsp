@@ -4,23 +4,6 @@
     Author     : PC
 --%>
 
-
-
-
-<%@page import="turistickaagencija.Connect"%>
-<%@page import="java.sql.Statement"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
-
-<%@page import="javax.persistence.EntityManager"%>
-<%@page import="javax.persistence.Persistence"%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <link href="../main.css" rel="stylesheet" type="text/css">
@@ -43,7 +26,7 @@
                 </h2>
             </div> 
             <%
-            response.setHeader("Refresh", "5;url=../index.jsp");
+            response.setHeader("Refresh", "2;url=../index.jsp");
             %>
         </div>
     </c:when>
@@ -60,7 +43,7 @@
                 </h2>
             </div> 
             <%
-            response.setHeader("Refresh", "5;url=../index.jsp");
+            response.setHeader("Refresh", "2;url=../index.jsp");
             %>
         </div>
     </c:when>

@@ -14,12 +14,12 @@
 <div><c:import url="header.jsp"/></div>
 <c:choose>
     <c:when test="${empty param.idDrzave || empty param.idMesta || empty param.idSmestaja}">
-        
+
         <div class='container naslov'>
             <h2 class="naslov" style="font-weight: 900; color: red" >Neispravni parametri </h2>
         </div>
         <%
-            response.setHeader("Refresh", "5;url=../index.jsp");
+            response.setHeader("Refresh", "2;url=../index.jsp");
         %>
     </c:when>
     <c:when test="${empty sessionScope.username || empty sessionScope.userId}">
@@ -27,18 +27,18 @@
             <h2 class="naslov" style="font-weight: 900; color: red" >Molim Vas ulogujte se </h2>
         </div>
         <%
-            response.setHeader("Refresh", "5;url=login.jsp");
+            response.setHeader("Refresh", "2;url=login.jsp");
         %>
     </c:when>
     <c:otherwise>
         <sql:query scope="application" dataSource="${db}" var="pop">
-                        SELECT * FROM korisnici WHERE kor_id = "${sessionScope.userId}";
-                    </sql:query>
-                        <c:forEach items="${pop.rows}" var="popusti">
-                            <c:set value="${popusti.kor_br_usluga}" var="popust" />
-                            
-                        </c:forEach>   
-                    
+            SELECT * FROM korisnici WHERE kor_id = "${sessionScope.userId}";
+        </sql:query>
+        <c:forEach items="${pop.rows}" var="popusti">
+            <c:set value="${popusti.kor_br_usluga}" var="popust" />
+            <c:out value="${popust}" />
+        </c:forEach>   
+
         <div class="container opis" >
             <div class="naslov" >Rezervacija</div>
             <c:set value="${param.idDrzave}" var="idDrzave" />
@@ -112,8 +112,8 @@
                         <option value=""> Izaberite tip prevoza: </option>
                     </select> <br/>
                     <span id="cenaPrevoza" hidden=""></span>
-                    
-                        
+
+
                     <span id="popust" hidden="">${popust}</span>
                     <span id="popust2"></span> <br/>
                     <span id="ukupnaCena"></span> <br/>
@@ -125,11 +125,7 @@
                           class="btn btn-primary" role="button">Apartmani</a>
                         <a href="../index.jsp" class="btn btn-primary" role="button">Pocetna</a>
                         <input value="Rezervisi" id="rezervisi" class="btn btn-primary" type="button" onclick="document.form1.submit();" disabled=""/></p>
-
-
                 </form>
-
-
             </div>
         </div>   
     </c:otherwise>

@@ -18,7 +18,7 @@
             <h2 class="naslov" style="font-weight: 900; color: red" >Neispravni parametri </h2>
         </div>
         <%
-            response.setHeader("Refresh", "5;url=../index.jsp");
+            response.setHeader("Refresh", "2;url=../index.jsp");
         %>
     </c:when>
     
@@ -90,7 +90,6 @@
                                     <c:set value="${sobaa.sobe_cena}" var="cenaSobe"/>
                                     <td>Cena po danu ${cenaSobe} din</td>
                                 </c:forEach> 
-                                
                         </table>
                         <br/>
                         <br/>
