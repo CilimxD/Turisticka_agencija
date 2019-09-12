@@ -1,0 +1,58 @@
+CREATE DATABASE  IF NOT EXISTS `turisticka_agencija` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `turisticka_agencija`;
+-- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: turisticka_agencija
+-- ------------------------------------------------------
+-- Server version	8.0.15
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `sobe`
+--
+
+DROP TABLE IF EXISTS `sobe`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `sobe` (
+  `sobe_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sobe_br_kreveta` int(11) DEFAULT NULL,
+  `sme_id` int(10) unsigned NOT NULL,
+  `sobe_cena` int(10) unsigned DEFAULT NULL,
+  `sobe_broj` int(11) NOT NULL,
+  PRIMARY KEY (`sobe_id`),
+  KEY `fk_sobe_smestaj1_idx` (`sme_id`),
+  CONSTRAINT `fk_sobe_smestaj1` FOREIGN KEY (`sme_id`) REFERENCES `smestaj` (`sme_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sobe`
+--
+
+LOCK TABLES `sobe` WRITE;
+/*!40000 ALTER TABLE `sobe` DISABLE KEYS */;
+INSERT INTO `sobe` VALUES (1,3,1,1350,1),(2,4,1,1250,2),(3,3,2,900,1),(4,4,2,950,2),(5,3,3,800,1),(6,4,3,850,2),(7,3,4,1400,1),(8,4,4,1450,2),(9,3,5,1375,1),(10,4,5,1290,2),(11,3,6,1150,1),(12,4,6,1230,2),(13,3,7,1390,1),(14,4,7,1450,2),(15,3,8,1230,1),(16,4,8,1290,2),(17,3,9,3000,1),(18,4,9,2850,2),(19,3,10,2000,1),(20,4,10,2120,2),(21,3,11,2500,1),(22,4,11,2600,2),(23,3,12,2990,1),(24,4,12,2800,2),(25,3,13,2600,1),(26,4,13,2750,2),(27,3,14,2450,1),(28,4,14,2550,2),(29,3,15,2780,1),(30,4,15,2660,2),(31,3,16,2780,1),(32,4,16,2650,2),(33,3,17,4000,1),(34,4,17,4250,2),(35,3,18,4500,1),(36,4,18,4680,2),(37,3,19,4800,1),(38,4,19,4960,2),(39,3,20,7000,0),(40,4,20,7500,2),(41,3,21,8000,1),(42,4,21,8560,2),(43,3,22,8800,1),(44,4,22,8600,2),(45,3,23,5000,1),(46,4,23,5250,2);
+/*!40000 ALTER TABLE `sobe` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-09-12 22:40:08
