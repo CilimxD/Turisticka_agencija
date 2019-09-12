@@ -44,15 +44,16 @@
         <fmt:formatDate value="${formatedDate}" pattern="EEE, MMM dd yyyy " type="DATE"/> 
 
         <sql:update scope="application" dataSource="${db}" var="sve">
+
             
-            INSERT INTO arazman(pre_id,araz_cena,araz_datum_od,araz_datum_do,araz_br_osoba,mes_id,sobe_id,kor_id) VALUES 
-            (?,?,?,?,?,?,?,?);
+            INSERT INTO arazman(pre_id,araz_cena,araz_datum_od,araz_datum_do,araz_br_osoba,sobe_id,kor_id) VALUES 
+            (?,?,?,?,?,?,?);
+
             <sql:param value="${prevoz}" />
             <sql:param value="${ukupnaCena}" />
             <sql:param value="${formatedDate}"/> 
             <sql:param value="${datumDo}"/>
             <sql:param value="${brojLjudi}" />
-            <sql:param value="${idMesta}" />
             <sql:param value="${brojSobe}" />
             <sql:param value="${sessionScope.userId}" />
             
@@ -72,7 +73,7 @@
                 <h2 class="naslov" style="font-weight: 900; color: green" >Uspesno ste rezervisali</h2>
             </div>
             <%
-                response.setHeader("Refresh", "5;url=../index.jsp");
+                response.setHeader("Refresh", "2;url=../index.jsp");
             %>
         
     </c:otherwise>
