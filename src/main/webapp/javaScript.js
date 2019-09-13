@@ -79,7 +79,6 @@ $("document").ready(function () {
             var found = 1;
             for (var i = 0; i < radios.length; i++) {
                 if (radios[i].checked && $("#span1").text() == "Match") {
-//                    alert(radios[i].value);
                     found = 0;
                     $('#submit').removeAttr("disabled");
                     $("#radio").empty();
@@ -135,7 +134,6 @@ $("document").ready(function () {
                     $("#brKreveta").html("");
                     return;
                 } else {
-                    // da provrim sa profom za ovo q:value
                     $.get("brojKreveta.jsp", {q: value}, function (data) {
                         $("#brKreveta").html(data);
 

@@ -87,13 +87,9 @@
                     java.util.ArrayList list = new java.util.ArrayList();
                     Object maxID = pageContext.getAttribute("max");
                     Object minID = pageContext.getAttribute("min");
-//                    int test = -1;
+
                     int maxidMesta = Integer.parseInt(String.valueOf(maxID));
                     int minidMesta = Integer.parseInt(String.valueOf(minID));
-//                    System.out.println(maxidMesta + " je max broj id ");
-//                    System.out.println(minidMesta + " je min broj id ");
-//                        int test1=-1;
-//                        int test2=-2;
                     int x = (int) (java.lang.Math.random() * ((maxidMesta - minidMesta) + 1) + minidMesta);
                     list.add(x);
                     int y = 0;
